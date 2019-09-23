@@ -1,1 +1,2 @@
-[KNOX](https://www.samsungknox.com/en)
+- [KNOX Homepage](https://www.samsungknox.com/en)
+- [KNOX feature set](https://www.samsungknox.com/en/knox-features/android/)

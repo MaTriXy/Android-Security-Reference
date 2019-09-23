@@ -1,4 +1,4 @@
-#KeyStore
+# KeyStore
 
 > KeyStore is responsible for maintaining cryptographic keys and their owners.
  
@@ -6,7 +6,7 @@ and
  
 > Use the Android Keystore provider to let an individual app store its own credentials that only the app itself can access. This provides a way for apps to manage credentials that are usable only by itself while providing the same security benefits that the KeyChain API provides for system-wide credentials. This method requires no user interaction to select the credentials.
 
-##Why should I use it?
+## Why should I use it?
 
 If you need to utilise and persist a cryptographic key in your application you either need to:
 
@@ -20,12 +20,12 @@ KeyStore allows a way to store a key in hardware (if available) or in software (
 This is especially handy for any kind of challenge / response auth or other process where a compromise of the key itself would cause problems.
 
 
-##Related API
+## Related API
 
 - [`KeyStore`](http://developer.android.com/reference/java/security/KeyStore.html)
   - KeyStore is responsible for maintaining cryptographic keys and their owners.
 - Used with   
-  - [`Cipher`](http://developer.android.com/reference/javax/crypto/Cipher.html#init(int, java.security.Key))
+  - [`Cipher`](http://developer.android.com/reference/javax/crypto/Cipher.html#init)
     - `Cipher.init(...)` takes a [`Key`](http://developer.android.com/reference/java/security/Key.html) which can represent a key that lives in the `KeyStore`
     - From **J-4.3-18** this can be the output of `KeyPair.getPrivate()`, where `KeyPair` is obtained from `KeyStore.getEntry(...)` e.g. RSA
     - From **M-6-23** this can be the output of `KeyStore.getKey(..)` if the `Key` for the passes `alias` is a `SecretKey` e.g. AES
@@ -57,7 +57,7 @@ This is especially handy for any kind of challenge / response auth or other proc
       - More control over what the key can be used for and when
       - Supports authentication-required-before-use (lock screen | finger)
 
-##Version changes
+## Version changes
 
 - **D-1.6-4**
   - Keystore implemented as a native keystore daemon that used a local socket as its IPC interface
@@ -76,7 +76,7 @@ This is especially handy for any kind of challenge / response auth or other proc
   - deamon retired and replaced with binder interface
 - **K-4.4-19**
   - Support for elliptic curve
-  - `Signiture` support for ECDSA varients
+  - `Signature` support for ECDSA varients
 - **M-6-23**
   - First time for AES `Cipher` support (See ['Supported Algorithms'](http://developer.android.com/training/articles/keystore.html#SupportedAlgorithms)) 
   - `KeyGenerator` support for AES & HMAC
@@ -90,13 +90,19 @@ This is especially handy for any kind of challenge / response auth or other proc
   - `KeyStore` keys can require fingerprint auth before use 
     - "User authentication authorizes a specific cryptographic operation associated with one key. In this mode, each operation involving such a key must be individually authorized by the user". See `api/finger` for more.
 - **N-7-24**
-  - Key Attestion
-    - Can prove to 3rd partys that a hardware keystore exists with certain keys by signing a representation using a factory supplied key 
-    - KeyStore now returns a chain for a key alias which can be used to verify that the device has passed CTS testing
-  - Hardware KeyStore manditory [IO link](https://youtu.be/XZzLjllizYs?t=571) 
-  - "When the device implementation supports a secure lock screen it MUST back up the keystore implementation with secure hardware" [ACD](http://source.android.com/compatibility/7.0/android-7.0-cdd.html#9_11_keys_and_credentials)
+  - KeyMaster 2
+  - [Key Attestation introduced](https://github.com/doridori/Android-Security-Reference/blob/master/framework/key_attestation.md)
+- **O-8-26**
+  - Keymaster 3
+- **P-9-28**
+  - Keymaster 4
+  - [StrongBox](https://developer.android.com/training/articles/keystore#HardwareSecurityModule)
+  - [Key importing](https://developer.android.com/training/articles/keystore#ImportingEncryptedKeys)
+  - Support for 3DES encryption
+  - Changes to version binding so that boot.img and system.img have separately set versions to allow for independent updates
 
-##User Authenticating Key Use
+
+## User Authenticating Key Use
 
 Key authentication options are below, which the api and functionality offered differ pre and post M-23-6.
 
@@ -118,18 +124,18 @@ Keep in mind the different modes of usage will have have an impact of the stabil
   - PostM
     - If [`.setUserAuthenticationRequired`](https://developer.android.com/reference/android/security/keystore/KeyGenParameterSpec.Builder.html#setUserAuthenticationRequired(boolean)) is `true` and [setUserAuthenticationValidityDurationSeconds](https://developer.android.com/reference/android/security/keystore/KeyGenParameterSpec.Builder.html#setUserAuthenticationValidityDurationSeconds(int)) == -1 then finger auth will be required per use
 
-##OS Auth
+## OS Auth
 
 - OS access auth
   - Key access is tied to the apps UID
   - If rooted any user/app can in theory assume any UID
   - Access marshalled by keystore deamon on older apis and binder server on new ones 
  
-###More on `.setUserAuthenticationRequired(true)` 
+### More on `.setUserAuthenticationRequired(true)` 
 
 If a key has been created with `.setUserAuthenticationRequired(true)` then the user has to either authenticate via 
 
-- [`KeyGuardManager.createConfirmDeviceCredentialIntent(...)`](https://developer.android.com/reference/android/app/KeyguardManager.html#createConfirmDeviceCredentialIntent(java.lang.CharSequence, java.lang.CharSequence)) to promt the user to enter pin, pattern or password. 
+- [`KeyGuardManager.createConfirmDeviceCredentialIntent(...)`](https://developer.android.com/reference/android/app/KeyguardManager.html#createConfirmDeviceCredentialIntent) to prompt the user to enter pin, pattern or password. 
   - [ConfirmCredential](http://developer.android.com/samples/ConfirmCredential/index.html)
     - Uses `.setUserAuthenticationValidityDurationSeconds(AUTHENTICATION_DURATION_SECONDS)`  
     - This sample demonstrates how you can use device credentials (PIN, Pattern, Password) in your app to authenticate the user before they are trying to complete some actions
@@ -137,34 +143,35 @@ If a key has been created with `.setUserAuthenticationRequired(true)` then the u
 - Fingerprint
   - Check [fingerprint.md](fingerprint.md) for more. Essentially needs to perform `KeyStore` op in fingerprint api auth callback.
 
-##Losing Keys and how to handle
+## Losing Keys and how to handle
 
 See [Android Security: The Forgetful Keystore](http://doridori.github.io/android-security-the-forgetful-keystore/) for losing Keys due to lock screen changes.
 
 You can also lose Keys that require fingerprint auth when a new finger is enrolled. See [fingerprint.md](/api/fingerprint.md)
 
-##Locking of Keystore
+## Locking of Keystore
 
 I have not encountered this myself but there are anecdontal reports of keystores becoming locked even when `setEncryptionRequired` == false. See [this SO post](http://stackoverflow.com/a/25790891/236743).
 
-##Hardware vs Software & CTS
+## Hardware vs Software & CTS
 
 See [/hardware/keystore.md](/hardware/keystore.md)
 
-##KeyMaster 
+## `KeyMaster` 
 
-The hardware `KeyStore` is accessed through an [OEM specfific HAL](https://source.android.com/security/keystore/). There is a `softkeymaster` also.
+The hardware `KeyStore` is accessed through an [OEM specfific HAL](https://source.android.com/security/keystore/). There is a `softkeymaster` also. See some interesting comments and links around this [here](https://doridori.github.io/android-security-the-forgetful-keystore/#comment-3220919933).
 
 See [android.googlesource.com](https://android.googlesource.com/platform/system/keymaster/+/master) for `keymaster` code. This [clone](https://github.com/geekboxzone/mmallow_system_keymaster/) maybe easier to navigate.
 
-##CAs
+
+## CAs
 
 CAs are also stored in the `KeyStore`. When added a custom CA device should prompt user to enter device credentials.
 
 
-##Links
+## Links
 
-- [`KeyStore`](http://developer.android.com/reference/java/security/KeyStore.html) class
+- [developer.android.com] [`KeyStore`](http://developer.android.com/reference/java/security/KeyStore.html) class
 - [developer.android.com] [Android Keystore System](http://developer.android.com/training/articles/keystore.html)
   - Shows list of Ciphers (& more) supported by the `KeyStore` 
 - Bugs / Vulns
@@ -173,5 +180,6 @@ CAs are also stored in the `KeyStore`. When added a custom CA device should prom
     - Use `setEncryptionRequired()` to mitigate 
   - 30/6/2016 [Extracting Qualcomm's KeyMaster Keys – Breaking Android Full Disk Encryption](https://news.ycombinator.com/item?id=12007923) 
     - Talks about FDE but as KEK is lifted likely to impact `KeyStore` keys also 
-
-
+- [Analysis of Secure Key Storage Solutions on Android](http://www.cs.kun.nl/~erikpoll/publications/AndroidSecureStorage.pdf)
+- [Android KeyStore: what is the difference between “StrongBox” and “hardware-backed” keys?](https://proandroiddev.com/android-keystore-what-is-the-difference-between-strongbox-and-hardware-backed-keys-4c276ea78fd0)
+- [How Secure is your Android Keystore Authentication ?](https://labs.mwrinfosecurity.com/blog/how-secure-is-your-android-keystore-authentication)

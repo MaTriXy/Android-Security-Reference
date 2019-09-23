@@ -1,0 +1,3 @@
+- [approov](https://www.approov.io/)
+  - API access via challenge/repoonses utilising the apk checksum
+- [saantiaguilera/android-api-SecureKeys](https://github.com/saantiaguilera/android-api-SecureKeys)

@@ -1,1 +1,2 @@
-- [Android Booting](http://elinux.org/Android_Booting)
+- [eLinux: Android Booting](http://elinux.org/Android_Booting)
+- [AOSP: Boot Flow](https://source.android.com/security/verifiedboot/boot-flow)

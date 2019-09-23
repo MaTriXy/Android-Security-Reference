@@ -1,0 +1,2 @@
+- [Protection ring](https://en.wikipedia.org/wiki/Protection_ring)
+  - > Linux and Windows are two operating systems that use supervisor/user mode. To perform specialized functions, user mode code must perform a system call into supervisor mode or even to the kernel space where trusted code of the operating system will perform the needed task and return the execution back to the userspace.

@@ -1,0 +1,29 @@
+- [developer.android.com] [Best Practices for Unique Identifiers](https://developer.android.com/training/articles/user-data-ids.html)
+  - `UUID`s
+    - App Generated
+  - [`InstanceIds`](https://developers.google.com/instance-id/)
+    - Server can use to detect app live-ness
+  - `IMEI/MEIDs` and `IMSIs`
+    - `Phone` perms
+    - [TelephonyManager](https://developer.android.com/reference/android/telephony/TelephonyManager.html) APIs changed in O preview (method renaming)
+  - `Ad Ids`
+  - `SSAIDs` aka `Settings.Secure.ANDROID_ID`
+    - From android O [unique](https://android-developers.googleblog.com/2017/04/changes-to-device-identifiers-in.html) for each packagename / signing cert combo
+    - Root accessable only via database
+    - Regen on factory reset
+  - `MAC` addresses
+    - Not availible since 6.0
+- [Android Identifiers: How Android devices and their users are identified](https://android.izzysoft.de/articles/named/identifiers-1?lang=en)
+  - Talks about
+    - Which identifiers exist, and what´s their respective purpose?
+    - By which permission can I tell that an app has access to a given identifier?
+    - Possible protective measures
+  - Adds to the above:
+    - [Build.Serial](https://developer.android.com/reference/android/os/Build.html#getSerial())
+      - Since Android 2.3 (“Gingerbread”) this is available via android.os.Build.SERIAL. Devices without telephony are required to report a unique device ID here; some phones may do so also. [android blog](https://android-developers.googleblog.com/2011/03/identifying-app-installations.html)    
+- [What is Instance ID](https://developers.google.com/instance-id/)
+- Google Services Framework ID
+  - [SO post to obtain](https://stackoverflow.com/questions/22743087/gsf-id-key-google-service-framework-id-as-android-device-unique-identifier)
+  - [What’s the difference between the GSF ID and the Android ID?](http://blog.onyxbits.de/whats-the-difference-between-the-gsf-id-and-the-android-id-208/)
+  - Not really documented
+- [developer.android.com] [Identifying App Installations](https://android-developers.googleblog.com/2011/03/identifying-app-installations.html)

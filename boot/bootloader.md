@@ -1,19 +1,27 @@
-##Unlocking
+## Unlocking
 
 Unlock via `fastboot` for devices that allow it. See [Unlocking the bootloader](https://source.android.com/source/running.html#unlocking-the-bootloader).
 
 > In	some	cases,	like	most	devices	built	for	use	on	the	Verizon	network,	the	ability	for	a	user	to	
 unlock	the	bootloader	is	blocked	entirely.	(from [SamDunk][SamDunk])
 
-##Security implications of unlocking
+## Security implications of unlocking
 
 [Security risks of unlocking](http://android.stackexchange.com/questions/36830/whats-the-security-implication-of-having-an-unlocked-boot-loader).
 
 Check out the `Verified Boot` section of this guide as it talks about unlocked bootloaders disabling verified boot in 7.0, which means its even more important in some cases that we know the state of it.
 
-##Checking bootloader lock status
+## Checking bootloader lock status
 
-_EDIT: 20/10/16_ SafetyNet [now seems to check bootloader status](https://www.reddit.com/r/android/comments/587ss9/_/)! 
+### SafetyNet
+
+_EDIT: 20/10/16_ SafetyNet [now seems to check bootloader status](https://www.reddit.com/r/android/comments/587ss9/_/)! This has also been added to the [SafetyNet docs](https://developer.android.com/training/safetynet/attestation.html#compat-check-response)
+
+### KeyAttestation
+
+[Root of trust](https://developer.android.com/training/articles/security-key-attestation#certificate_schema_rootoftrust)
+
+### Other
 
 AFAIK there is no single and/or public apis/methods to check the bootloader lock status. OEMs have different private approaches for doing this. 
 
@@ -32,3 +40,8 @@ partition.		There	are	likely	many	other	methods,	but	the	concept	is	the	same:	on
 unlock	status	to	be	changed	via	a	controlled	and	deliberate	method.	
 
   [SamDunk]: http://theroot.ninja/disclosures/SAMDUNK_1.0-03262016.pdf
+
+## Updating
+
+//TODO
+

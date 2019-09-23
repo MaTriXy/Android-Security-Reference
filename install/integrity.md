@@ -1,0 +1,2 @@
+- [Method and device for providing verifying application integrity ](https://www.google.com/patents/WO2016083541A1?cl=en)
+- [Install flow](https://en.wikipedia.org/wiki/Android_Runtime#/media/File:ART_view.png)

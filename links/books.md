@@ -1,4 +1,10 @@
 - [Android Security Cookbook](https://www.amazon.co.uk/Android-Security-Cookbook-Keith-Makan/dp/1782167161/)
 - [Android Security Internals: An In-Depth Guide to Android's Security Architecture](https://www.amazon.co.uk/Android-Security-Internals--Depth-Architecture/dp/1593275811/)
+  - Excellent
 - [Android Hacker's Handbook](https://www.amazon.co.uk/Android-Hackers-Handbook-Joshua-Drake/dp/111860864X/)
 - [Android Internals::A Confectioner's Cookbook](http://newandroidbook.com/21-Security.pdf) (Security chapter)
+- [Hack-with-Github/Free-Security-eBooks](https://github.com/Hack-with-Github/Free-Security-eBooks)
+- [OWASP collection](https://www.owasp.org/index.php/OWASP_Mobile_Security_Testing_Guide)
+  - [The Mobile Security Testing Guide (MSTG)](https://github.com/OWASP/owasp-mstg/)
+    - Excellent
+- [The CERT ® Oracle ® Secure Coding Standard for Java](https://ptgmedia.pearsoncmg.com/images/9780321803955/samplepages/0321803957.pdf)

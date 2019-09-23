@@ -1,0 +1,4 @@
+- [Introducing Adiantum: Encryption for the Next Billion Users](https://security.googleblog.com/2019/02/introducing-adiantum-encryption-for.html)
+  - New cipher for performant software based OS storage encryption
+- [Work with data more securely](https://developer.android.com/topic/security/data)
+  - Jetpack encrypted prefs / file encryption

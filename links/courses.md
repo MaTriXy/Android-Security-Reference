@@ -1,0 +1,1 @@
+- [ 0x1A Great Papers in Computer Security](http://www.cs.utexas.edu/~shmat/courses/cs380s/)

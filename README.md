@@ -9,10 +9,10 @@ Still very much WIP and lots to come!
 
 Feel free to contribute!
 
-##Style
+## Style
 
 - Android version names are in the format `<CodeNameLetter>-<Version>-<API>` i.e. `M-6-23`
 
-##Tools
+## Tools
 
 - Nav helper [OctoTree](https://chrome.google.com/webstore/detail/octotree/bkhaagjahfmjljalopjnoealnfndnagc)

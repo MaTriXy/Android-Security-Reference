@@ -1,8 +1,8 @@
-#General Tips
+# General Tips
 
 - [drduh/OS-X-Security-and-Privacy-Guide](https://github.com/drduh/OS-X-Security-and-Privacy-Guide)
 
-#Java
+# Java
 
 Keep your JDK up to date as there are [many vulns](https://www.cvedetails.com/vulnerability-list/vendor_id-93/product_id-19117/Oracle-JRE.html) and it does NOT generally auto-update.
 

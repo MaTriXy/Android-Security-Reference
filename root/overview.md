@@ -10,3 +10,6 @@ Rooting a device is a contentious subject as many domain-sensitive applications 
 
 - [Is there a difference between sudo mode and kernel mode?](http://stackoverflow.com/questions/21761185/is-there-a-difference-between-sudo-mode-and-kernel-mode)
   - Interesting and needs more research _"However, the superuser may have the ability to change kernel code, for example by asking the kernel to load a module or by modifying the storage from which the kernel is loaded on boot. Finally, in some cases the superuser may be able to execute calls which expose raw hardware or memory to userspace access, and subsequently perhaps do some things from userspace which can ordinarily only be done from kernel space."_
+- [What Is “Systemless Root” on Android, and Why Is It Better?](https://www.howtogeek.com/249162/what-is-systemless-root-on-android-and-why-is-it-better/)
+  - Systemless = modified boot image
+  - System = flash su binary to system (or custom ROM)

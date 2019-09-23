@@ -1,17 +1,6 @@
-#Android Libs
+# Persistence
 
-##Pure Crypto
-
-- [tozny/java-aes-crypto](https://github.com/tozny/java-aes-crypto)
-  - A simple Android class for encrypting & decrypting strings, aiming to avoid the classic mistakes that most such classes suffer from.
-- [Conceal](http://facebook.github.io/conceal/)
-  - Facebook. Fast cryptographic operations for Android 
-- [Spongy Castle](https://rtyley.github.io/spongycastle/)
-  - Spongy Castle is the stock Bouncy Castle libraries with a couple of small changes to make it work on Android: 
-  
-
-##Applied Crypto - Persistence
-
+- [Official] [Jetpack File Encryption](https://developer.android.com/topic/security/data)
 - [vijayrawatsan/ExpirableDiskLruCache](https://github.com/vijayrawatsan/ExpirableDiskLruCache)
   - Expirable Disk Lru Cache is a secure(with encryption) wrapper for [DiskLruCache](https://github.com/JakeWharton/DiskLruCache)
 - [scottyab/secure-preferences](https://github.com/scottyab/secure-preferences) 
@@ -20,3 +9,11 @@
   - Secure Simple Key-Value Storage for Android 
 - [iamMehedi/Secured-Preference-Store](https://github.com/iamMehedi/Secured-Preference-Store)
   - A cryptography library and a SharedPreferences wrapper for Android that encrypts the content with 256 bit AES encryption. The Encryption key is securely stored in device's KeyStore. 
+- [Ufkoku/CipherSharedPrefs](https://github.com/Ufkoku/CipherSharedPrefs/blob/master/README.md)
+  - Contains its own AES impl
+- [R2D2](https://github.com/moldedbits/r2d2)
+  - R2D2 Android uses Android Keystore to store passwords and other sensitive information for different API versions in an encrypted form.
+- [saantiaguilera/android-api-SecureKeys](https://github.com/saantiaguilera/android-api-SecureKeys/wiki)
+  - A tiny lib (Less than 10 methods) to store constants where attackers will have a harder time to find.
+- [SafeRoom](https://github.com/commonsguy/cwac-saferoom)
+  - CWAC-SafeRoom: A Room<->SQLCipher for Android Bridge

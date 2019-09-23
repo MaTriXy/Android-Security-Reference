@@ -1,23 +1,25 @@
-#Application & Framework Permissions
+# Framework Permissions
 
 ## Platform Provided Permissions
 
 [List of all platform provided permissions](https://github.com/android/platform_frameworks_base/blob/master/core/res/AndroidManifest.xml)
 
-## Declaring custom permissions
+### Permissions Groups
 
-See [\<permission\>](https://developer.android.com/guide/topics/manifest/permission-element.html)
+Permission grouping affect the way the permissions request is shown to the user. If a user has given permission for a permission in a group, other permissions in that group with be automatically granted to the requesting application.
+
+See a list of permission groups here [Permission groups](https://developer.android.com/guide/topics/permissions/requesting.html#perm-groups)
 
 ## android:protectionLevels
 
 See comprehensive official list [R.attr list](https://developer.android.com/reference/android/R.attr.html#protectionLevel). Notes below:
 
-###Apk definable:
+### Apk definable:
 
 - `Normal`
   - The system automatically grants this type of permission to a requesting application at installation
 - `Dangerous`
-  - This type of permission introduces potential risk, the system may not automatically grant it to the requesting application 
+  - This type of permission introduces potential risk, the system may not automatically grant it to the requesting application. On M-6-23 (when the target is also 23+) this would trigger a dialog for the user to grant the perm 
 - `Signature`
   - Meaning of this depends on where the permission is defined. 
     - If in the core OS [/system/framework/framework-res.apk/AndroidManifest.xml](https://github.com/android/platform_frameworks_base/blob/master/core/res/AndroidManifest.xml) then the permission holder would need to be signed by the same key (which is the _`platform`_ key used in the OS signing process)
@@ -26,7 +28,7 @@ See comprehensive official list [R.attr list](https://developer.android.com/refe
 - `signatureOrSystem` 
   - See `signiture` and `system`
   
-###Other:
+### Other:
 
 - `System`
   - An app that resides in `system/app` (<4.4) or `system/priv-app/` (4.4+) [link](http://stackoverflow.com/a/20104400/236743) 
@@ -37,6 +39,9 @@ See comprehensive official list [R.attr list](https://developer.android.com/refe
   - Superceeds `system`
 - `Preinstalled` 
   - An app that resides in `system/app` (4.4+)? [link](http://stackoverflow.com/questions/33481730/difference-between-preinstalled-and-privileged-protection-level)
+- `appop`
+  - Additional flag from base permission type: this permission is closely associated with an app op for controlling access.
+  - e.g. [`SYSTEM_ALERT_WINDOW`](https://commonsware.com/blog/2017/05/11/system_alert_window-updates.html)
 - [Various](https://developer.android.com/reference/android/R.attr.html#protectionLevel)
 
 ## Platform permission holder representation
@@ -71,4 +76,14 @@ com.example.android.apis 10050 0 /data/data/com.example.android.apis default 300
 ```
 
 For info on the GIDs at the end look at [Kernel Permissions](kernel_perms.md)
+
+# Permission Requesting
+
+## 6 
+
+[Overlays not allowed][https://i.stack.imgur.com/BEGzf.png]
+
+## 7 
+
+SYSTEM_ALERT_OVERLAY is auto removed when any permissions dialog is shown
 

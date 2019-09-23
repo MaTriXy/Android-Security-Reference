@@ -1,0 +1,3 @@
+- [SecComp](https://en.wikipedia.org/wiki/Seccomp#cite_note-10)
+- [Linux Security: seccomp, and its usage in Android and Docker](https://pierrchen.blogspot.com/2017/06/seccomp-and-its-usage-in-android-and.html)
+- [https://github.com/google/sandboxed-api](https://github.com/google/sandboxed-api)

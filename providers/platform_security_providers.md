@@ -1,8 +1,8 @@
-#Platform Security Providers
+# Platform Security Providers
 
 Security functionality on Android is provided by various open src libs which vary depending on the OS version. There are native libs and java libs with JCE interfaces which coexist. 
 
-##Quick Overview to terms
+## Quick Overview to terms
 
 The crypto side of java has a few abbreviations associated with it, here are the most common ones:
 
@@ -19,9 +19,9 @@ The crypto side of java has a few abbreviations associated with it, here are the
 
 Guide to terms like JCE & JSSE can be found [here](http://www.oracle.com/technetwork/java/javase/tech/index-jsp-136007.html).
 
-##Native Implementations
+## Native Implementations
 
-####OpenSSL
+#### OpenSSL
 
 - Used since the beginning?
 - OpenSSL version used - look in AOSP [openSSL version file](https://github.com/android/platform_external_openssl/blob/jb-release/openssl.version) for each platform tag 
@@ -30,8 +30,9 @@ Guide to terms like JCE & JSSE can be found [here](http://www.oracle.com/technet
   - L-5 `1.0.1h`
   - M-6 superceeded by BoringSSL 
 - Backs `SecureRandom` since [4.2](http://android-developers.blogspot.co.uk/2013/02/using-cryptography-to-store-credentials.html)
+- Compiling for Android [notes](https://scottyab.com/2017/05/how-to-build-and-integrate-openssl-into-your-android-ndk-project/)
 	
-####BoringSSL
+#### BoringSSL
 
 - Android's [BoringSSL repo](https://android.googlesource.com/platform/external/boringssl/) 
 - Upstream [repo](https://boringssl.googlesource.com/boringssl/)	
@@ -41,14 +42,18 @@ Guide to terms like JCE & JSSE can be found [here](http://www.oracle.com/technet
   - Seems to pull in upstream forks patches and align to newer interfaces (1.1)
 - Transition starting in 6.0
 
-##Java JCE Providers
+### AndroidKeyStore
 
-####Apache Harmonys Crypto Provider
+Guessing this is for implementations provided/backed by the `KeyStore` API.
+
+## Java JCE Providers
+
+#### Apache Harmonys Crypto Provider
 		
 - Old and being phased out
 - Limited JCE functionality
 
-####AndroidOpenSSL
+#### AndroidOpenSSL
 
 - Introduced in 4 (SSL function only)
 - Highest priority since 4.4
@@ -71,7 +76,7 @@ Guide to terms like JCE & JSSE can be found [here](http://www.oracle.com/technet
   - This calls through a loaded `.so` lib (not included in AOSP or BoringSSL repos afaik) to [rsa.c](https://boringssl.googlesource.com/boringssl/+/master/crypto/rsa/rsa.c#222). This internally calls through to the loaded `struct RSA` (`rsa->meth->decrypt`) and will perform the op based upon the structs config. 
 - Was part of `libcore` until 4.4 
 
-####BouncyCastle
+#### BouncyCastle
 
 - Android used an old version of BC ("[crippled]")
 - Was the default security Java Security API provider
@@ -79,20 +84,28 @@ Guide to terms like JCE & JSSE can be found [here](http://www.oracle.com/technet
 - Offered full JCE functionality
 - Unsure how much (if any) functionality delegated to native (i.e. [Open|Boring]Ssl) implementation. Should look at the CSPRNG...
 
-####SpongyCastle
+#### AndroidKeyStoreBCWorkaroundProvider
+
+[Check out the code comments](https://android.googlesource.com/platform/frameworks/base/+/a8c837f/keystore/java/android/security/keystore/AndroidKeyStoreBCWorkaroundProvider.java)
+
+#### SpongyCastle
 
 - Many people import this so can use latest BC, pretty much a jarjarlinks rename so no namespace clashes with BC. 
 - If going to use best not to make default but still set staically so can use with direct sepcifier throughout app
 
-####Crypto
+#### Crypto
 
 - Small (buggy) provider mostly offering SHA1 based operations (plus DSA on older platform versions). Reduced to SHA1PRNG and then removed completely in N.
 - [Security "Crypto" provider deprecated in Android N](http://android-developers.blogspot.co.uk/2016/06/security-crypto-provider-deprecated-in.html?utm_source=androiddevdigest)
 
-##Updating platform Provider from your app
+#### CertPathProvider
+
+[Src](https://android.googlesource.com/platform/libcore/+/bf04039/ojluni/src/main/java/sun/security/provider/CertPathProvider.java)
+
+## Updating platform Provider from your app
 
 See [Updating Your Security Provider to Protect Against SSL Exploits](http://developer.android.com/training/articles/security-gms-provider.html). Not clear if updates `BoringSSL` or just the Java `AndroidOpenSSL` SPI (or both). 
 
-##What algorithms do the providers supply?
+## What algorithms do the providers supply?
 
 - [What crypto algorithms does Android support?](http://stackoverflow.com/questions/7560974/what-crypto-algorithms-does-android-support)
