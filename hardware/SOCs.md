@@ -2,7 +2,7 @@ While not directly related to security, sometimes the SoC on a device can have s
 - e.g. does the CPU support TrustZone? 
 - [Some vulns](https://www.codeaurora.org/projects/security-advisories/memory-corruption-qseecom-driver-cve-2014-4322) are for specific chipsets
 
-Here is a non-exhaustive list of some common Android Socs _(ARM unless noted otherwise)_:
+Here is a non-exhaustive list of some common Android SoCs _(ARM unless noted otherwise)_:
 
 - Saumsung [Exynos](https://en.wikipedia.org/wiki/Exynos)
    - Used in _some_ Samsung phones [link](https://en.wikipedia.org/wiki/Samsung_Galaxy_S_series#Comparison)
@@ -15,3 +15,5 @@ Here is a non-exhaustive list of some common Android Socs _(ARM unless noted oth
 - Texas Instruments OMAP
 - ST-Ericsson NovaThor
 - NVidea Tegra
+- Google Tensor 
+  - [What is Google Tensor](https://www.pocket-lint.com/phones/news/google/157890-what-is-google-tensor-and-which-phones-and-devices-does-it-power)

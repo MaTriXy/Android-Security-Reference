@@ -12,6 +12,13 @@ This is the same as standard Java's `jarsigner`. Explanation [here](https://web.
 
 From [source.android.com/security/apksigning/](https://source.android.com/security/apksigning/#v2)
 
+# Version 3
+
+[V3](https://source.android.com/security/apksigning/v3)
+
+- Supports key rotation
+- Android 9+
+
 # Signing with multiple certs
 
 - Seems not very well supported anecdotally
@@ -56,6 +63,10 @@ Takeaway: _Always be specific!_
 - [guardianproject/checkey](https://github.com/guardianproject/checkey)
   - Releated to interesting F-Droid [reproducable builds](https://f-droid.org/wiki/page/Deterministic,_Reproducible_Builds) project
     - [blog post](https://guardianproject.info/2015/02/11/complete-reproducible-app-distribution-achieved/)
+
+## Via Gradle (Android)
+
+`android -> signingReport` gradle task
 
 ## Via `term`
 

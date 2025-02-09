@@ -14,6 +14,12 @@ See the [hardware/TEE.md](/hardware/TEE.md) for more inc. vulns.
 
 _A [TEE](https://en.wikipedia.org/wiki/Trusted_execution_environment) (or [TPM](https://en.wikipedia.org/wiki/Trusted_Platform_Module)) can change a `KeyStore` attack from **offline** (which would be against a software KeyStores data) to **online** (running on the device issuing commands to the hardware). This further prevents extraction of the private key and potentially throttling of access attempts (and therefore potential exploitation). See Androids [Trusty TEE](https://source.android.com/security/trusty/index.html)_
 
+## Strongbox
+
+Strongbox is a keymaster implemented in tamper-resitant hardware (e.g. an HSM &| SE). This can be present in [addition](https://source.android.com/security/best-practices/hardware) to the TEE based keymaster implementation.
+
+Strongbox has a [subset](https://developer.android.com/training/articles/keystore.html#HardwareSecurityModule) of keys types available for use.
+
 ## CDD/CTS
 
 The CDD history of the `KeyStore` is quite interesting. There are a few fundamental features for which ROM inclusion or hardware presense of will make some requirements around `KeyStore` implementation come into scope. These are around:
@@ -38,9 +44,13 @@ implement a TEE.
 
 ### CDD N-7.0-24
 
-Hardware based `KeyStore` is [now mandatory in N](https://youtu.be/XZzLjllizYs?t=571); In the updated CDD [9.11. Keys and Credentials](https://source.android.com/compatibility/7.0/android-7.0-cdd#9_11_keys_and_credentials)  this changed the 6.0 **SHOULD** to: 
+Hardware based `KeyStore` is [now mandatory in for devices release with N](https://youtu.be/XZzLjllizYs?t=571); In the updated CDD [9.11. Keys and Credentials](https://source.android.com/compatibility/7.0/android-7.0-cdd#9_11_keys_and_credentials).
+
+However it does state
 
 > Note that if a device implementation is already launched on an earlier Android version, such a device is exempted from the requirement to have a hardware-backed keystore, unless it declares the android.hardware.fingerprint feature which requires a hardware-backed keystore.
+
+I have observerd on a 6P. which does support fingerprint and running 8.1.0 that it supports RSA in hardware but not AES.
 
 ### CDD N-7.1-25
 
@@ -49,6 +59,16 @@ An Interesting change to section `9.11` in `7.1` is that:
 > MUST have implementations of RSA, AES, ECDSA and HMAC cryptographic algorithms and MD5, SHA1, and SHA-2 family hash functions to properly support the Android Keystore system's supported algorithms in an area that is securely isolated from the code running on the kernel and above. Secure isolation MUST block all potential mechanisms by which kernel or userspace code might access the internal state of the isolated environment, including DMA. The upstream Android Open Source Project (AOSP) meets this requirement by using the Trusty implementation, but another ARM TrustZone-based solution or a third-party reviewed secure implementation of a proper hypervisor-based isolation are alternative options.
 
 Previous to this change, _harware keystore support_ was pretty ambiguous. A device could have a hardware `KeyStore`, but not support all the [Supported Algorithms](https://developer.android.com/training/articles/keystore.html#SupportedAlgorithms) _in hardware_. This can be seen on the Nexus 5 running M-6-23, which supports hardware RSA but not AES; which would result in the AES operation being performed in the _software_ `KeyStore`.
+
+### CDD S-12-31
+
+No change to section `9.11` from the CDD for N-7.1-25 above.
+
+### CDD T-13-33
+
+> [C-1-2] MUST have implementations of RSA, AES, ECDSA, ECDH (if IKeyMintDevice is supported), 3DES, and HMAC...
+
+ECDH and 3DES added.
 
 ## API checking
 

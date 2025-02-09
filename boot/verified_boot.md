@@ -10,6 +10,7 @@
       - [Key Attestion](https://developer.android.com/training/articles/security-key-attestation.html) checks bootloader status with hardware-based certs [verify source] signing the response
 - 8: [Android Verified Boot](https://source.android.com/security/verifiedboot/)
   - Rollback prevention
+- 9: Devices shipping with Android 9 MUST support verified boot [link](https://www.xda-developers.com/android-pie-rollback-protection/)
 
 # Checking verified boot
 
@@ -42,6 +43,7 @@ _From [Android Security 2015 Year in Review](http://static.googleusercontent.com
 
 # Links
 
+- [Verified Boot googlesource README](https://android.googlesource.com/platform/external/avb/+/master/README.md)
 - [Signing boot images for Android Verified Boot (AVB)
 ](https://forum.xda-developers.com/android/software-hacking/signing-boot-images-android-verified-t3600606)
 - [source.android.com] [https://source.android.com/security/verifiedboot/index.html](https://source.android.com/security/verifiedboot/index.html)

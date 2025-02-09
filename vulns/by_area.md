@@ -70,6 +70,7 @@ Its worth keeping in mind the nature of the below flaws, as they generally fall 
     - Restricted touch functionality in 4.0 [SO](https://stackoverflow.com/a/9462190/236743)
     - `FLAG_NOT_FOCUSABLE` will allow all touch to pass through, otherwise all consumed (needs confirmation)
     - [Perm deprecated in Q](https://twitter.com/reyammer/status/1133785544209698816)
+    - [Protecting against android overlay attacks](https://www.guardsquare.com/blog/protecting-against-android-overlay-attacks-guardsquare#:~:text=How%20do%20you%20protect%20against,on%20your%20specified%20activity%20windows.) _Mar 2023_
   - `BIND_ACCESSIBILITY_SERVICE`
     - [How Android Accessibility Services Can Be Used To Hack Your Phone](http://www.makeuseof.com/tag/android-accessibility-services-can-used-hack-phone/) _17th May 2016_
       - Up to M-6-23 only as takes advantage of gaps in system overlays
@@ -102,6 +103,11 @@ Alive? Data Residue Attacks on Android](http://www.cis.syr.edu/~wedu/Research/pa
 - Zygote
   - [Attack on Zygote: a new twist in the evolution of mobile threats](https://securelist.com/analysis/publications/74032/attack-on-zygote-a-new-twist-in-the-evolution-of-mobile-threats/) _3rd March 2016_
     - One of the best articles I have seen deconstructing malware 
+
+# Dependencies / Populat libs
+
+- Log4j
+  - [Log4Shell: RCE 0-day exploit found in log4j 2, a popular Java logging package](https://www.lunasec.io/docs/blog/log4j-zero-day/) _Dec 2021_
     
 # Hardware
 

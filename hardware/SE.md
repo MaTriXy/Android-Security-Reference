@@ -1,3 +1,6 @@
+
+# General Links
+
 - [Difference between TEE and SE](https://security.stackexchange.com/questions/122738/difference-between-tmp-tee-and-se)
 - [Accessing the embedded secure element in Android 4.x 
 ](https://nelenkov.blogspot.co.uk/2012/08/accessing-embedded-secure-element-in.html)
@@ -8,10 +11,26 @@
 - [Host-based Card Emulation](https://developer.android.com/guide/topics/connectivity/nfc/hce.html)
   - Alternative to SE based card-emulation
 
-# Pixel 2
+# Devices / OEMs
+
+## Pixel 2
 
 The Pixel 2 ships with a [hardware security module](https://www.blog.google/products/android-enterprise/how-pixel-2s-security-module-delivers-enterprise-grade-security/) which contains an [NXP](https://plus.google.com/+DeesTroy/posts/i33ygUi7tiu) discrete [chip](https://www.ifixit.com/Teardown/Google+Pixel+2+XL+Teardown/98093#s180076), which also [slows down the rooting process](https://www.xda-developers.com/magisk-v14-4-root-pixel-2-xl-su/). 
 
-# Pixel 3 and Titan
+## Pixel 3 and Titan
 
 [Building a Titan: Better security through a tiny chip](https://android-developers.googleblog.com/2018/10/building-titan-better-security-through.html)
+
+## Pixel 6 and Titan M2 & Tensor Processor
+
+...
+
+## Samsung
+
+- [eSE](https://github.com/doridori/Android-Security-Reference/blob/master/hardware/SE.md) / [sdk](https://developer.samsung.com/ese/overview.html)
+
+# Strongbox
+
+From [official docs](https://developer.android.com/training/articles/keystore#HardwareSecurityModule)
+
+> Supported devices running Android 9 (API level 28) or higher can have a StrongBox Keymaster, an implementation of the Keymaster or Keymint HAL that resides in a hardware security module-like secure element. While hardware security modules can refer to many different implementations of key-storage where a Linux kernel compromise can't reveal them, such as TEE, StrongBox explicitly refers to devices such as embedded Secure Elements (eSE) or on-SoC secure processing units (iSE).

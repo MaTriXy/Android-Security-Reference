@@ -1,3 +1,5 @@
+_See [/hardware/keystore.md](/hardware/keystore.md) for hardware information._
+
 # KeyStore
 
 > KeyStore is responsible for maintaining cryptographic keys and their owners.
@@ -100,7 +102,11 @@ This is especially handy for any kind of challenge / response auth or other proc
   - [Key importing](https://developer.android.com/training/articles/keystore#ImportingEncryptedKeys)
   - Support for 3DES encryption
   - Changes to version binding so that boot.img and system.img have separately set versions to allow for independent updates
-
+- **Q-10-29**
+  - If your app targets Android 10 (API level 29) or higher, inspect the return value of getSecurityLevel(). Return values matching KeyProperties.SecurityLevelEnum.TRUSTED_ENVIRONMENT or KeyProperties.SecurityLevelEnum.STRONGBOX indicate that the key resides within secure hardware.  
+- **S-12-31**
+  - Keystore2 quietly introduced
+    - I can't find much context around this change, or anything from Google / Android around motivations. I see some comments regarding improvements around protecting against DoS attacks on the key generation API.  The package is [here](https://android.googlesource.com/platform/frameworks/base/+/9a59faa385d9ff31dd7d309b38fee9ea0e4647b3/keystore/java/android/security/keystore2).
 
 ## User Authenticating Key Use
 
@@ -124,9 +130,17 @@ Keep in mind the different modes of usage will have have an impact of the stabil
   - PostM
     - If [`.setUserAuthenticationRequired`](https://developer.android.com/reference/android/security/keystore/KeyGenParameterSpec.Builder.html#setUserAuthenticationRequired(boolean)) is `true` and [setUserAuthenticationValidityDurationSeconds](https://developer.android.com/reference/android/security/keystore/KeyGenParameterSpec.Builder.html#setUserAuthenticationValidityDurationSeconds(int)) == -1 then finger auth will be required per use
 
-## OS Auth
+## Keystore API usage
 
-- OS access auth
+### Importing Keys
+
+- [Official examples](https://developer.android.com/reference/kotlin/android/security/keystore/KeyProtection) for importing AES keys without wrapping
+- [Official docs](https://developer.android.com/training/articles/keystore#ImportingEncryptedKeys) for importing wrapped keys
+- [SO post](https://stackoverflow.com/questions/39249856/import-encrypted-aes-key-into-android-keystore-and-store-it-under-new-alias) on importing
+
+### OS Authorization
+
+- OS access authorization
   - Key access is tied to the apps UID
   - If rooted any user/app can in theory assume any UID
   - Access marshalled by keystore deamon on older apis and binder server on new ones 
@@ -143,25 +157,21 @@ If a key has been created with `.setUserAuthenticationRequired(true)` then the u
 - Fingerprint
   - Check [fingerprint.md](fingerprint.md) for more. Essentially needs to perform `KeyStore` op in fingerprint api auth callback.
 
-## Losing Keys and how to handle
+## Known Issues
 
-See [Android Security: The Forgetful Keystore](http://doridori.github.io/android-security-the-forgetful-keystore/) for losing Keys due to lock screen changes.
+### Losing Keys and how to handle
 
-You can also lose Keys that require fingerprint auth when a new finger is enrolled. See [fingerprint.md](/api/fingerprint.md)
+- See [Android Security: The Forgetful Keystore](http://doridori.github.io/android-security-the-forgetful-keystore/) for losing Keys due to lock screen changes.
+- You can also lose Keys that require fingerprint auth when a new finger is enrolled. See [fingerprint.md](/api/fingerprint.md)
+- There are also [potentially some OEM issues](https://github.com/tink-crypto/tink/issues/535#issuecomment-912170221) with Keystore Master key loss
 
-## Locking of Keystore
+### Locking of Keystore
 
 I have not encountered this myself but there are anecdontal reports of keystores becoming locked even when `setEncryptionRequired` == false. See [this SO post](http://stackoverflow.com/a/25790891/236743).
 
-## Hardware vs Software & CTS
+## What cryptographic primitives / Keystore operations are supported in hardware?
 
 See [/hardware/keystore.md](/hardware/keystore.md)
-
-## `KeyMaster` 
-
-The hardware `KeyStore` is accessed through an [OEM specfific HAL](https://source.android.com/security/keystore/). There is a `softkeymaster` also. See some interesting comments and links around this [here](https://doridori.github.io/android-security-the-forgetful-keystore/#comment-3220919933).
-
-See [android.googlesource.com](https://android.googlesource.com/platform/system/keymaster/+/master) for `keymaster` code. This [clone](https://github.com/geekboxzone/mmallow_system_keymaster/) maybe easier to navigate.
 
 
 ## CAs

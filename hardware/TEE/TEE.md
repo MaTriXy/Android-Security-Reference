@@ -30,7 +30,8 @@ From 'Android Security Internals' the Nexus 4 was TrustZone enabled, with QSEE i
   - AOSP TEE
   - Any TEE OS (not just Trusty) can be used for TEE implementations
   - Currently all Trusty applications are developed by a single party and packaged with the Trusty kernel image.
-  - NOT GlobalPlatform conforming
+  - NOT GlobalPlatform conforming (this may have changed)
+  - [Ships on the Pixel 6 as part of Tensor](https://blog.google/products/pixel/introducing-google-tensor/)
 - Giesecke & Devrient (G&D) `MobiCore`
   - [Looks like](http://www.smartinsights.net/Secure-Transactions-News/ARM-Gemalto-and-G-D-launch-Trustonic-for-TEE) it used to be Qualcomms TEE
   - [G&D CARTES 2012 Demo presentation](https://www.gi-de.com/gd_media/media/documents/complementary_material/events_1/04_STE_CARTES__Demo_Presentation.pdf)
@@ -39,8 +40,13 @@ From 'Android Security Internals' the Nexus 4 was TrustZone enabled, with QSEE i
   - [Set up by ARM, Gemalto, G&D](http://www.smartinsights.net/Secure-Transactions-News/ARM-Gemalto-and-G-D-launch-Trustonic-for-TEE)
   - GlobalPlatform conforming
   - Used by [**MediaTek**](https://www.trustonic.com/news/company/mediatek-licences-trustonic-trusted-execution-environment/) and Samsungs **Eyxnos**
+  - MicroKernel design (as stated [here](https://www.trustonic.com/news/technology/what-is-a-trusted-execution-environment-tee/))
 - Trusted Logic (Gemalto company) `Trusted Foundations`
   - Unsure if used on Android
+- TEEGRIS
+  - [Samsung](https://developer.samsung.com/teegris/overview.html) (again!)    
+- TZOS
+  - Includes TEEGRIS, Kinibi, QSEE    
 
 
 ### Built on top of x86
@@ -73,6 +79,7 @@ The blog posts listed below talks about reversing Trustlets. They seem to be sig
 - Vuln in any Trustlet can allow the TEE to be compromised
   - (Re:Trusty) Although the Trusty OS enables the development of new applications, doing so must be exercised with extreme care; each new application increases the area of the trusted computing base (TCB) of the system. Trusted applications can access device secrets and can perform computations or data transformations using them.
 - [INSPECTING DATA FROM THE SAFETY OF YOUR TRUSTED EXECUTION ENVIRONMENT](https://www.blackhat.com/docs/ldn-15/materials/london-15-Williams-Inspecting-Data-From-The-Safety-Of-Your-Trusted-Execution-Environment.pdf)
+- [Trust Dies in Darkness: Shedding Light on Samsung’s TrustZone Keymaster Design](https://www.usenix.org/system/files/sec22fall_shakevsky.pdf)
   
 ## Common Usage Scenarios
 
@@ -90,6 +97,11 @@ The blog posts listed below talks about reversing Trustlets. They seem to be sig
   - Bridge between Normal and Secure World.
 - `SCM` - Secure Channel Manager
   - Qualcomm Linux Kernal driver that interacts with QSEE via SMC
+
+## Deveopment 
+
+- [Open-TEE - An Open Virtual Trusted Execution
+Environment](https://arxiv.org/pdf/1506.07367.pdf)
 
 ## Links
 
@@ -111,6 +123,7 @@ The blog posts listed below talks about reversing Trustlets. They seem to be sig
 - [A software level analysis of TrustZone OS and Trustlets in Samsung Galaxy Phone](https://sensepost.com/blog/2013/a-software-level-analysis-of-trustzone-os-and-trustlets-in-samsung-galaxy-phone/)
   - Talks about MobiCore, how to deploy Trustlets, and how to blackbox assess them
 - [ARM: Trusted Zone on Android\*](https://www.slideshare.net/lekaha/arm-trusted-zone-on-android)  
+- [ARM TrustZone's Secure/Normal world vs x86's Ring0/3 or OS's kernel/user mode?](https://community.arm.com/developer/ip-products/processors/trustzone-for-armv8-m/f/trustzone-armv8-m-forum/4536/arm-trustzone-s-secure-normal-world-vs-x86-s-ring0-3-or-os-s-kernel-user-mode)
 
 ## Vulns
 
